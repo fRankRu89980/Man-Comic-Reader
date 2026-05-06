@@ -27,7 +27,7 @@ const seasonPageSources = [
   {
     label: "Volume IV - A Million Miles From Home",
     folder: "Batman 4 - A Million Miles From Home",
-    pages: Array.from({ length: 15 }, (_, index) => `PG${index}.jpeg`)
+    pages: Array.from({ length: 24 }, (_, index) => `PG${index}.jpeg`)
   }
 ]
 
@@ -246,6 +246,23 @@ function setupMediaPerformance() {
     if(playPromise && typeof playPromise.catch === "function") {
       playPromise.catch(() => {});
     }
+  });
+}
+
+function setupDrawerIcons() {
+  const drawerIcons = Array.from(document.querySelectorAll(".site-drawer-link-icon"));
+
+  drawerIcons.forEach(icon => {
+    const hideIcon = () => {
+      icon.classList.add("is-missing");
+    };
+
+    if(icon.complete && icon.naturalWidth === 0) {
+      hideIcon();
+      return;
+    }
+
+    icon.addEventListener("error", hideIcon, { once: true });
   });
 }
 
@@ -1412,6 +1429,8 @@ async function registerServiceWorker() {
 
   try {
     if(isLocalDevelopmentHost()) {
+      // In sviluppo locale non registriamo il service worker: VS Code Live Server/Preview
+      // deve vedere i file aggiornati senza rimanere bloccato da cache vecchie o shell PWA stale.
       const registrations = await navigator.serviceWorker.getRegistrations();
       await Promise.all(registrations.map(registration => registration.unregister()));
 
@@ -1843,6 +1862,7 @@ function setupRoulette() {
 function boot() {
   paginaCorrente = getInitialPageIndexFromQuery();
   setupMediaPerformance();
+  setupDrawerIcons();
   setupHamburgerMenu();
   setupMenu();
   setupNavigation();
@@ -1857,5 +1877,4 @@ function boot() {
 }
 
 boot();
-
 

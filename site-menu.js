@@ -4,6 +4,23 @@ const secondaryDrawerOverlay = document.getElementById("site-drawer-overlay");
 const secondaryDrawerLinks = Array.from(document.querySelectorAll(".site-drawer-link"));
 const secondaryBgVideo = document.getElementById("bg-video");
 
+function setupSecondaryDrawerIcons() {
+  const drawerIcons = Array.from(document.querySelectorAll(".site-drawer-link-icon"));
+
+  drawerIcons.forEach(icon => {
+    const hideIcon = () => {
+      icon.classList.add("is-missing");
+    };
+
+    if(icon.complete && icon.naturalWidth === 0) {
+      hideIcon();
+      return;
+    }
+
+    icon.addEventListener("error", hideIcon, { once: true });
+  });
+}
+
 function setupSecondaryHamburgerMenu() {
   if(!secondaryHamburgerToggle || !secondaryDrawer || !secondaryDrawerOverlay) return;
 
@@ -141,6 +158,8 @@ async function registerSecondaryServiceWorker() {
 
   try {
     if(location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "::1") {
+      // In sviluppo locale lasciamo il service worker disattivato: le pagine secondarie
+      // devono riflettere subito le modifiche di VS Code senza passare da cache PWA.
       return;
     }
 
@@ -153,6 +172,7 @@ async function registerSecondaryServiceWorker() {
 }
 
 function bootSecondaryPage() {
+  setupSecondaryDrawerIcons();
   setupSecondaryMediaPerformance();
   setupSecondaryHamburgerMenu();
   registerSecondaryServiceWorker();
