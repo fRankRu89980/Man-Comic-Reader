@@ -393,6 +393,18 @@ body.desktop-drawer-visible{
   object-fit:cover;
 }
 
+.personaggi-page .season-cover{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+}
+
+.personaggi-page .season-cover img{
+  object-fit:contain;
+  object-position:center;
+}
+
 .season-info{
   display:flex;
   flex-direction:column;
