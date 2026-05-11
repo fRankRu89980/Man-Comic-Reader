@@ -221,6 +221,28 @@
         </div>
       </main>
 
+      <section class="reader-zoom-panel" aria-label="Zoom lettore">
+        <div class="reader-zoom-head">
+          <span class="reader-zoom-label">Zoom fumetto</span>
+          <span id="reader-zoom-value" class="reader-zoom-value">100%</span>
+        </div>
+        <div class="reader-zoom-slider-row">
+          <span class="reader-zoom-scale-label">50%</span>
+          <input
+            id="reader-zoom-range"
+            class="reader-zoom-range"
+            type="range"
+            min="50"
+            max="115"
+            step="1"
+            value="100"
+            aria-label="Regola la grandezza del fumetto"
+          />
+          <span class="reader-zoom-scale-label">115%</span>
+        </div>
+        <button id="reader-zoom-reset" class="reader-zoom-reset" type="button">100%</button>
+      </section>
+
       <div class="toolbar" aria-label="Controlli lettore">
         <button id="prev-btn" class="nav-btn" type="button" aria-label="Pagina precedente">Precedente</button>
         <div class="page-jump">

@@ -6,6 +6,7 @@ const LOGIN_SUCCESS_EVENT = "comic-reader:login-success";
 const SWIPE_INTENT_THRESHOLD = 10;
 const TAP_MAX_DISTANCE = 12;
 const SWIPE_TRIGGER_RATIO = 0.25;
+const READER_ZOOM_STORAGE_KEY = `${APP_STORAGE_PREFIX}reader-zoom`;
 
 const seasonPageSources = [
   {
@@ -88,6 +89,9 @@ const prevBtn = document.getElementById("prev-btn");
 const nextBtn = document.getElementById("next-btn");
 const pageInput = document.getElementById("page-input");
 const pageBtn = document.getElementById("page-btn");
+const readerZoomRange = document.getElementById("reader-zoom-range");
+const readerZoomValue = document.getElementById("reader-zoom-value");
+const readerZoomReset = document.getElementById("reader-zoom-reset");
 const title = document.querySelector(".title-main");
 const installBtn = document.getElementById("install-app-btn");
 const iosInstallModal = document.getElementById("ios-install-modal");
@@ -216,6 +220,67 @@ function setRuntimeCssVariable(name, value) {
   const rootRule = getRuntimeRule(":root");
   if(!rootRule) return;
   rootRule.style.setProperty(name, value);
+}
+
+function getReaderZoomBounds() {
+  const min = Number(readerZoomRange?.min);
+  const max = Number(readerZoomRange?.max);
+  const normalizedMin = Number.isFinite(min) ? min : 50;
+  const normalizedMax = Number.isFinite(max) ? max : 115;
+
+  if(normalizedMax <= normalizedMin) {
+    return {
+      min: 50,
+      max: 115
+    };
+  }
+
+  return {
+    min: normalizedMin,
+    max: normalizedMax
+  };
+}
+
+function clampReaderZoom(value) {
+  const { min, max } = getReaderZoomBounds();
+  return Math.min(max, Math.max(min, value));
+}
+
+function updateReaderZoomUi(value) {
+  const clampedValue = clampReaderZoom(value);
+  const { min, max } = getReaderZoomBounds();
+  const progress = ((clampedValue - min) / (max - min)) * 100;
+  setRuntimeCssVariable("--reader-zoom-scale", `${clampedValue / 100}`);
+  setRuntimeCssVariable("--reader-zoom-progress", `${progress}%`);
+
+  if(readerZoomRange) {
+    readerZoomRange.value = String(clampedValue);
+  }
+
+  if(readerZoomValue) {
+    readerZoomValue.textContent = `${clampedValue}%`;
+  }
+}
+
+function setupReaderZoom() {
+  if(!readerZoomRange || !readerZoomValue || !readerZoomReset) return;
+
+  const savedValue = Number(window.localStorage.getItem(READER_ZOOM_STORAGE_KEY));
+  const initialValue = Number.isFinite(savedValue) ? clampReaderZoom(savedValue) : 100;
+  updateReaderZoomUi(initialValue);
+
+  readerZoomRange.addEventListener("input", event => {
+    const nextValue = clampReaderZoom(Number(event.currentTarget.value));
+    updateReaderZoomUi(nextValue);
+    window.localStorage.setItem(READER_ZOOM_STORAGE_KEY, String(nextValue));
+  });
+
+  readerZoomReset.addEventListener("click", event => {
+    if(guardDoubleTap(event.currentTarget, 180)) return;
+    updateReaderZoomUi(100);
+    window.localStorage.setItem(READER_ZOOM_STORAGE_KEY, "100");
+    resetUiFocus(event.currentTarget);
+  });
 }
 
 function updateStatus(message) {
@@ -1865,6 +1930,7 @@ function boot() {
   setupDrawerIcons();
   setupHamburgerMenu();
   setupMenu();
+  setupReaderZoom();
   setupNavigation();
   setupTitleEffects();
   setupSwipe();
