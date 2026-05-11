@@ -21,13 +21,13 @@ const seasonPageSources = [
   {
     label: "Volume III - L'Abisso",
     folder: "Batman 3 - L'abisso",
-    pages: Array.from({ length: 46 }, (_, index) => `PG${index}.jpeg`)
+    pages: Array.from({ length: 48 }, (_, index) => `PG${index}.jpeg`)
     
   },
   {
     label: "Volume IV - A Million Miles From Home",
     folder: "Batman 4 - A Million Miles From Home",
-    pages: Array.from({ length: 24 }, (_, index) => `PG${index}.jpeg`)
+    pages: Array.from({ length: 32 }, (_, index) => `PG${index}.jpeg`)
   }
 ]
 
@@ -1877,4 +1877,3 @@ function boot() {
 }
 
 boot();
-

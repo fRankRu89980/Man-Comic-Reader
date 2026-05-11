@@ -1,9 +1,11 @@
-const CACHE_NAME = "comic-reader-shell-v8";
+const CACHE_NAME = "comic-reader-shell-v9";
 const APP_SHELL = [
   "./",
   "./index.html",
   "./storie.html",
   "./personaggi.html",
+  "./le-perle-di-bud.html",
+  "./meanwhile-the-doctor.html",
   "./crediti.html",
   "./app.css?v=7",
   "./app.js?v=7",
@@ -18,6 +20,8 @@ function isAppShellAsset(pathname) {
     pathname.endsWith("/index.html") ||
     pathname.endsWith("/storie.html") ||
     pathname.endsWith("/personaggi.html") ||
+    pathname.endsWith("/le-perle-di-bud.html") ||
+    pathname.endsWith("/meanwhile-the-doctor.html") ||
     pathname.endsWith("/crediti.html") ||
     pathname.endsWith("/app.css") ||
     pathname.endsWith("/app.js") ||
