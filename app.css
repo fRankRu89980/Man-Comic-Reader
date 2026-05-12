@@ -1147,13 +1147,49 @@ button,
   filter:drop-shadow(0 6px 12px rgba(0,0,0,0.6));
 }
 
+.title-logo-image{
+  width:clamp(72px, 10vw, 110px);
+  height:auto;
+  display:block;
+  object-fit:contain;
+}
+
 .title-text{
   position:relative;
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:8px;
+  width:min(100%, 760px);
+  padding:18px 28px 16px;
   line-height:1;
+}
+
+.title-text::before,
+.title-text::after{
+  content:"";
+  position:absolute;
+  left:0;
+  width:100%;
+  height:1px;
+  background:linear-gradient(
+    90deg,
+    rgba(241,196,15,0),
+    rgba(241,196,15,0.82) 18%,
+    rgba(255,255,255,0.92) 50%,
+    rgba(241,196,15,0.82) 82%,
+    rgba(241,196,15,0)
+  );
+  box-shadow:0 0 16px rgba(241,196,15,0.18);
+  pointer-events:none;
+}
+
+.title-text::before{
+  top:0;
+}
+
+.title-text::after{
+  bottom:0;
 }
 
 .title-main{
@@ -2153,6 +2189,11 @@ button,
   .title-container{
     gap:12px;
     margin-top:0;
+  }
+
+  .title-text{
+    width:min(100%, 92vw);
+    padding:14px 14px 12px;
   }
 
   .hamburger-toggle{
