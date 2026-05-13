@@ -538,6 +538,10 @@ body.desktop-drawer-visible{
   gap:28px;
 }
 
+main.credits-shell{
+  margin-top:32px;
+}
+
 .showcase-shell{
   width:min(100%, 1100px);
   display:flex;
@@ -986,6 +990,15 @@ body.desktop-drawer-visible{
 
 .theme-song-player{
   display:none;
+}
+
+.credits-player-video{
+  width:100%;
+  display:block;
+  aspect-ratio:16 / 9;
+  border-radius:14px;
+  background:#06090f;
+  box-shadow:0 10px 24px rgba(0,0,0,0.28);
 }
 
 @media (max-width:600px){

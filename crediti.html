@@ -84,19 +84,61 @@
   </header>
 
   <main class="credits-shell" role="main">
-    <section class="credits-video-section" aria-labelledby="credits-video-title">
-      <h2 id="credits-video-title" class="title-sub">Credit:</h2>
-
-      <div class="credits-video-wrapper">
-        <video class="credits-video" controls preload="none" poster="./assets/credits-poster.png">
+    <section class="credits-video-section">
+      <section
+        class="theme-song-card"
+        id="credits-player-card"
+        aria-label="Video crediti"
+      >
+        <video
+          class="credits-player-video"
+          id="credits-video-player"
+          preload="none"
+          poster="./assets/credits-poster.png"
+        >
           <source src="./videos/crediti.mp4" type="video/mp4" />
           Il tuo browser non supporta il video HTML5.
         </video>
-      </div>
+
+        <div class="theme-song-player-shell" aria-label="Controlli video crediti">
+          <button
+            class="theme-song-control theme-song-play"
+            id="credits-play"
+            type="button"
+            aria-label="Riproduci video crediti"
+            aria-pressed="false"
+          >
+            <span class="theme-song-control-icon" id="credits-play-icon">&#9654;</span>
+          </button>
+          <div class="theme-song-progress-block">
+            <div class="theme-song-time" id="credits-time">00:00 / 00:00</div>
+            <input
+              class="theme-song-progress"
+              id="credits-progress"
+              type="range"
+              min="0"
+              max="100"
+              value="0"
+              step="0.1"
+              aria-label="Avanzamento video crediti"
+            />
+          </div>
+          <button
+            class="theme-song-control theme-song-mute"
+            id="credits-mute"
+            type="button"
+            aria-label="Attiva o disattiva audio"
+            aria-pressed="false"
+          >
+            <span class="theme-song-control-icon" id="credits-mute-icon">&#128266;</span>
+          </button>
+        </div>
+      </section>
     </section>
 
   </main>
 
   <script src="./site-menu.js?v=7" defer></script>
+  <script src="./crediti.js?v=7" defer></script>
 </body>
 </html>
