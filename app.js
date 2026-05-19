@@ -28,7 +28,7 @@ const seasonPageSources = [
   {
     label: "Volume IV - A Million Miles From Home",
     folder: "Batman 4 - A Million Miles From Home",
-    pages: Array.from({ length: 32 }, (_, index) => `PG${index}.jpeg`)
+    pages: Array.from({ length: 37 }, (_, index) => `PG${index}.jpeg`)
   }
 ]
 
