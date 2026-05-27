@@ -1,4 +1,4 @@
-const CACHE_NAME = "comic-reader-shell-v9";
+const CACHE_NAME = "comic-reader-shell-v18";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -8,7 +8,15 @@ const APP_SHELL = [
   "./meanwhile-the-doctor.html",
   "./crediti.html",
   "./app.css?v=7",
-  "./app.js?v=7",
+  "./app/app-init.js?v=7",
+  "./app/app-vignette.js?v=7",
+  "./app/app-reader.js?v=7",
+  "./app/app-hamburger.js?v=7",
+  "./app/app-swipe.js?v=7",
+  "./app/app-seasons.js?v=7",
+  "./app/app-pwa.js?v=7",
+  "./app/app-entertainment.js?v=7",
+  "./app/app.js?v=7",
   "./site-menu.js?v=7",
   "./manifest.json?v=7",
   "./icons/icon-192.png?v=7",
@@ -24,6 +32,14 @@ function isAppShellAsset(pathname) {
     pathname.endsWith("/meanwhile-the-doctor.html") ||
     pathname.endsWith("/crediti.html") ||
     pathname.endsWith("/app.css") ||
+    pathname.endsWith("/app-init.js") ||
+    pathname.endsWith("/app-vignette.js") ||
+    pathname.endsWith("/app-reader.js") ||
+    pathname.endsWith("/app-hamburger.js") ||
+    pathname.endsWith("/app-swipe.js") ||
+    pathname.endsWith("/app-seasons.js") ||
+    pathname.endsWith("/app-pwa.js") ||
+    pathname.endsWith("/app-entertainment.js") ||
     pathname.endsWith("/app.js") ||
     pathname.endsWith("/site-menu.js") ||
     pathname.endsWith("/manifest.json") ||
