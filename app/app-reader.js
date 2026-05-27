@@ -263,6 +263,28 @@ function renderPageLayers() {
   setLayerTransforms(0);
 }
 
+// ── Cambio pagina ────────────────────────────────────────────
+
+export function mostraPagina(index) {
+  state.paginaCorrente = Math.max(0, Math.min(index, fumetti.length - 1));
+  const pageNumber = state.paginaCorrente + 1;
+
+  updateStatus(`Pagina ${pageNumber} di ${fumetti.length}`);
+  updateSeasonUi(pageNumber);
+  updateNavButtons();
+  pageCounter.textContent = `${pageNumber} / ${fumetti.length}`;
+  renderPageLayers();
+  creaVignette(pageNumber);
+}
+
+function nextPage() {
+  mostraPagina(state.paginaCorrente + 1);
+}
+
+function prevPage() {
+  mostraPagina(state.paginaCorrente - 1);
+}
+
 // ── Setup navigazione (tastiera, bottoni, modal) ─────────────
 
 export function setupNavigation() {
