@@ -1,3 +1,6 @@
+// ── Player video crediti ─────────────────────────────────────
+(function () {
+
 function setupCreditsPlayer() {
   const card        = document.getElementById("credits-player-card");
   const videoEl     = document.getElementById("credits-video-player");
@@ -117,3 +120,5 @@ function setupCreditsPlayer() {
 }
 
 setupCreditsPlayer();
+
+})();

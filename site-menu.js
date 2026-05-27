@@ -1,4 +1,12 @@
-﻿const secondaryHamburgerToggle = document.getElementById("hamburger-toggle");
+
+if (window.self !== window.top) {
+  window.top.location.replace(window.self.location.href);
+}
+
+// ── Menu hamburger e utility pagine secondarie ───────────────
+(function () {
+
+const secondaryHamburgerToggle = document.getElementById("hamburger-toggle");
 const secondaryDrawer = document.getElementById("site-drawer");
 const secondaryDrawerOverlay = document.getElementById("site-drawer-overlay");
 const secondaryDrawerLinks = Array.from(document.querySelectorAll(".site-drawer-link"));
@@ -158,8 +166,6 @@ async function registerSecondaryServiceWorker() {
 
   try {
     if(location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "::1") {
-      // In sviluppo locale lasciamo il service worker disattivato: le pagine secondarie
-      // devono riflettere subito le modifiche di VS Code senza passare da cache PWA.
       return;
     }
 
@@ -180,3 +186,4 @@ function bootSecondaryPage() {
 
 bootSecondaryPage();
 
+})();

@@ -1,3 +1,8 @@
+
+if (window.self !== window.top) {
+  window.top.location.replace(window.self.location.href);
+}
+
 import {
   state,
   title

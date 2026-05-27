@@ -1,4 +1,4 @@
-// ============================================================
+1// ============================================================
 //  PWA & SERVICE WORKER — Installazione, cache, aggiornamento
 //  Post-login refresh, iOS fallback, prompt nativi
 // ============================================================
@@ -47,14 +47,6 @@ function isLocalDevelopmentHost() {
 
 function installDismissed() {
   return window.localStorage.getItem(INSTALL_DISMISS_KEY) === "1";
-}
-
-function logInstallDebug(message, details) {
-  if(details !== undefined) {
-    console.debug("[PWA install]", message, details);
-    return;
-  }
-  console.debug("[PWA install]", message);
 }
 
 function hideInstallUi() {
@@ -212,7 +204,7 @@ async function refreshServiceWorkerState() {
 async function fetchFreshJson(url, options = {}) {
   const response = await fetch(buildCacheBustUrl(url, options.appVersion), {
     method: options.method || "GET",
-    credentials: options.credentials || "include",
+    credentials: options.credentials || "same-origin",
     cache: "no-store",
     headers: {
       Accept: "application/json",
@@ -265,12 +257,8 @@ async function handlePostLoginRefresh(options = {}) {
 // ── Exports ──────────────────────────────────────────────────
 
 export function setupPostLoginRefreshBridge() {
-  // Espone solo il minimo indispensabile per eventuali integrazioni auth future.
-  window.ComicReaderAuth = Object.freeze({
-    appVersion: APP_VERSION,
-    handlePostLoginRefresh
-  });
-
+  // Non esponiamo nulla su window: riduce la superficie d'attacco.
+  // Il bridge reagisce solo all'evento custom, same-origin per definizione.
   window.addEventListener(LOGIN_SUCCESS_EVENT, event => {
     handlePostLoginRefresh(event.detail || {});
   });
@@ -282,8 +270,6 @@ export async function registerServiceWorker() {
 
   try {
     if(isLocalDevelopmentHost()) {
-      // In sviluppo locale non registriamo il service worker: VS Code Live Server/Preview
-      // deve vedere i file aggiornati senza rimanere bloccato da cache vecchie o shell PWA stale.
       const registrations = await navigator.serviceWorker.getRegistrations();
       await Promise.all(registrations.map(registration => registration.unregister()));
 
@@ -296,7 +282,6 @@ export async function registerServiceWorker() {
         );
       }
 
-      console.debug("[PWA] Service worker disattivato in sviluppo locale per evitare cache vecchie.");
       return;
     }
 
@@ -320,23 +305,14 @@ export async function registerServiceWorker() {
 export function setupInstallUi() {
   if(!installBtn || !iosInstallModal) return;
 
-  logInstallDebug("setupInstallUi init", {
-    standalone: isStandalone(),
-    ios: isIos(),
-    iosSafari: isIosSafari(),
-    iosChrome: isIosChrome()
-  });
-
   window.addEventListener("beforeinstallprompt", event => {
     event.preventDefault();
     state.deferredInstallPrompt = event;
     state.installPromptInFlight = false;
-    logInstallDebug("beforeinstallprompt ricevuto");
     showInstallButton("Installa App");
   });
 
   window.addEventListener("appinstalled", () => {
-    logInstallDebug("appinstalled ricevuto");
     state.deferredInstallPrompt = null;
     state.installPromptInFlight = false;
     hideInstallUi();
@@ -344,12 +320,6 @@ export function setupInstallUi() {
 
   installBtn.addEventListener("click", async () => {
     if(guardDoubleTap(installBtn, 320)) return;
-    logInstallDebug("click sul pulsante installazione", {
-      hasDeferredPrompt: !!state.deferredInstallPrompt,
-      installPromptInFlight: state.installPromptInFlight,
-      ios: isIos(),
-      standalone: isStandalone()
-    });
 
     if(state.deferredInstallPrompt) {
       if(state.installPromptInFlight) return;
@@ -357,10 +327,8 @@ export function setupInstallUi() {
       state.installPromptInFlight = true;
 
       try {
-        logInstallDebug("chiamata a deferredPrompt.prompt()");
         await state.deferredInstallPrompt.prompt();
         const choiceResult = await state.deferredInstallPrompt.userChoice;
-        logInstallDebug("userChoice risolta", choiceResult);
 
         if(choiceResult && choiceResult.outcome === "accepted") {
           hideInstallUi();
@@ -369,14 +337,12 @@ export function setupInstallUi() {
         }
       } catch (error) {
         console.warn("Install prompt non completato:", error);
-        logInstallDebug("prompt() o userChoice hanno generato errore", error);
         if(!isStandalone()) {
           hideInstallUi();
         }
       } finally {
         state.deferredInstallPrompt = null;
         state.installPromptInFlight = false;
-        logInstallDebug("stato install prompt ripulito");
       }
 
       resetUiFocus(installBtn);
@@ -384,13 +350,11 @@ export function setupInstallUi() {
     }
 
     if(isIos() && !isStandalone()) {
-      logInstallDebug("fallback iOS aperto");
       openInstallInstructions();
       resetUiFocus(installBtn);
       return;
     }
 
-    logInstallDebug("nessun deferredPrompt disponibile: browser non supportato o evento non ancora ricevuto");
     resetUiFocus(installBtn);
   });
 
@@ -418,7 +382,6 @@ export function setupInstallUi() {
   });
 
   if(isStandalone()) {
-    logInstallDebug("app gia' in standalone, UI install nascosta");
     hideInstallUi();
     return;
   }
@@ -426,10 +389,7 @@ export function setupInstallUi() {
   if(isIos() && !installDismissed()) {
     const content = getIosInstallContent();
     renderInstallInstructions(content);
-    logInstallDebug("fallback iOS mostrato");
     showInstallButton(content.buttonLabel);
     return;
   }
-
-  logInstallDebug("in attesa di beforeinstallprompt");
 }
