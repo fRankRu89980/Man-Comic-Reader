@@ -257,8 +257,6 @@ async function handlePostLoginRefresh(options = {}) {
 // ── Exports ──────────────────────────────────────────────────
 
 export function setupPostLoginRefreshBridge() {
-  // Non esponiamo nulla su window: riduce la superficie d'attacco.
-  // Il bridge reagisce solo all'evento custom, same-origin per definizione.
   window.addEventListener(LOGIN_SUCCESS_EVENT, event => {
     handlePostLoginRefresh(event.detail || {});
   });
