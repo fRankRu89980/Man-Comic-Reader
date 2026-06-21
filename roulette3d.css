@@ -113,3 +113,58 @@ body.roulette3d-lock #site-drawer-overlay {
   .roulette3d-overlay,
   #roulette3d-overlay-canvas { transition: none; }
 }
+
+/* ============================================================
+   Gate orientamento (solo smartphone): la roulette 3D richiede la
+   modalità orizzontale. In verticale un overlay bloccante copre il
+   canvas e i controlli vengono nascosti finché non si ruota.
+   ============================================================ */
+.roulette3d-rotate {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;               /* sopra il canvas, sotto il tasto Chiudi (1002) */
+  display: none;               /* attivo solo su smartphone in verticale */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 28px;
+  text-align: center;
+  background: rgba(6, 8, 12, .94);
+  color: #ffd86e;
+}
+.roulette3d-rotate-text {
+  margin: 0;
+  max-width: 16em;
+  font: 600 18px Arial, sans-serif;
+  line-height: 1.4;
+}
+.roulette3d-rotate-phone {
+  width: 48px;
+  height: 82px;
+  border: 3px solid #d4af37;
+  border-radius: 11px;
+  position: relative;
+  animation: roulette3d-rotate-hint 1.8s ease-in-out infinite;
+}
+.roulette3d-rotate-phone::after {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: 4px;
+  background: rgba(212, 175, 55, .18);
+}
+@keyframes roulette3d-rotate-hint {
+  0%, 28%   { transform: rotate(0deg); }
+  58%, 100% { transform: rotate(-90deg); }
+}
+
+/* Smartphone in verticale + roulette 3D aperta: mostra il gate, nasconde la barra. */
+@media (orientation: portrait) and (max-width: 600px) and (pointer: coarse) {
+  .roulette3d-overlay.is-open .roulette3d-rotate { display: flex; }
+  .roulette3d-overlay.is-open .roulette3d-bar { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roulette3d-rotate-phone { animation: none; }
+}

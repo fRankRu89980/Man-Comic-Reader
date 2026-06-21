@@ -16,6 +16,35 @@ if (overlay) {
   let controller = null;
   let loading = false;
 
+  // Su smartphone la roulette 3D va usata in orizzontale: in verticale si mostra
+  // il gate (CSS) e si attende la rotazione prima di far partire il giro.
+  const portraitPhone = window.matchMedia("(orientation: portrait) and (max-width: 600px) and (pointer: coarse)");
+  let waitingLandscape = false;
+
+  function startSpinWhenReady() {
+    if (portraitPhone.matches) {
+      waitingLandscape = true;      // il giro parte appena lo schermo è orizzontale
+      if (resultEl) resultEl.textContent = "Ruota lo schermo…";
+    } else {
+      waitingLandscape = false;
+      controller.spin();
+    }
+  }
+
+  function onOrientationChange() {
+    if (!waitingLandscape) return;
+    if (!overlay.classList.contains("is-open")) return;
+    if (!portraitPhone.matches && controller) {
+      waitingLandscape = false;
+      controller.resize();
+      controller.spin();
+    }
+  }
+
+  // matchMedia change: addEventListener moderno + fallback addListener (Safari datati)
+  if (portraitPhone.addEventListener) portraitPhone.addEventListener("change", onOrientationChange);
+  else if (portraitPhone.addListener) portraitPhone.addListener(onOrientationChange);
+
   async function open() {
     if (loading) return;
 
@@ -51,12 +80,13 @@ if (overlay) {
 
     controller.setActive(true);
     controller.resize();
-    controller.spin();            // gira appena aperta
+    startSpinWhenReady();         // su smartphone in verticale: attende la rotazione
   }
 
   function close() {
     overlay.classList.remove("is-open");
     document.body.classList.remove("roulette3d-lock");
+    waitingLandscape = false;
     if (controller) controller.setActive(false);
     window.setTimeout(() => {
       overlay.hidden = true;
