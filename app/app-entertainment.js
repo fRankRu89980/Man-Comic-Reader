@@ -531,11 +531,57 @@ export function setupRoulette() {
   updateRouletteBallPosition(ballAngle);
   setRouletteVoiceEnabled(true);
 
-  rouletteContainer.addEventListener("click", spinRoulette);
+  // ── Modalità roulette: 3D (default) oppure 2D ──────────────
+  // Pulsante che mostra la modalità ATTIVA. Default "3D": cliccando la
+  // ruota si apre la roulette 3D. Cliccando il pulsante diventa "2D":
+  // la ruota gira in 2D nativa, senza aprire l'overlay 3D.
+  const rouletteModeBtn = document.getElementById("roulette-mode-btn");
+  let mode3d = true;
+
+  function setRouletteMode(use3d) {
+    mode3d = use3d;
+    if(rouletteModeBtn) {
+      rouletteModeBtn.textContent = mode3d ? "3D" : "2D";
+      rouletteModeBtn.setAttribute("aria-pressed", mode3d ? "true" : "false");
+    }
+  }
+  setRouletteMode(true);
+  if(rouletteModeBtn) {
+    rouletteModeBtn.addEventListener("click", () => setRouletteMode(!mode3d));
+  }
+
+  function activateRoulette() {
+    // Modalità 3D + overlay presente → apri la 3D (niente spin 2D).
+    if(mode3d && document.getElementById("roulette3d-overlay")) {
+      window.dispatchEvent(new CustomEvent("roulette3d:open"));
+      return;
+    }
+    // Modalità 2D (o nessun overlay) → gira la ruota 2D nativa.
+    spinRoulette();
+  }
+
+  rouletteContainer.addEventListener("click", activateRoulette);
   rouletteContainer.addEventListener("keydown", event => {
     if(event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      spinRoulette();
+      activateRoulette();
+    }
+  });
+
+  // Estrazione dalla roulette 3D → posiziona la pallina bianca 2D sul
+  // numero uscito (stesso ordine numeri) e aggiorna "Ultima estrazione".
+  window.addEventListener("roulette3d:result", event => {
+    const detail = (event && event.detail) || {};
+    if(typeof detail.number === "number" && !spinning) {
+      const idx = rouletteNumbers.indexOf(detail.number);
+      if(idx >= 0) {
+        const segAngle = (Math.PI * 2) / rouletteNumbers.length;
+        ballAngle = normalizeRouletteAngle(-Math.PI / 2 + idx * segAngle + segAngle / 2);
+        updateRouletteBallPosition(ballAngle);
+      }
+    }
+    if(detail.text) {
+      rouletteResult.textContent = `Numero uscito: ${detail.text}`;
     }
   });
   rouletteVoiceBtn.addEventListener("click", () => {

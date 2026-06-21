@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="upgrade-insecure-requests; default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' blob:; font-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'self'; worker-src 'self' blob:; manifest-src 'self'"
+  />
+  <title>Gotham 3D Mode | Batman Comic Reader</title>
+  <meta name="theme-color" content="#050510" />
+  <link rel="icon" href="./icons/icon-192.png?v=7" type="image/png" />
+  <link rel="stylesheet" href="./gotham.css?v=7" />
+</head>
+<body>
+
+  <canvas id="gotham-canvas" aria-label="Scena 3D di Gotham City"></canvas>
+
+  <header class="gotham-ui" role="banner">
+    <a href="./index.html" class="gotham-back-btn" aria-label="Torna al Comic Reader">
+      &#8592; Comic Reader
+    </a>
+  </header>
+
+  <p class="gotham-hint" aria-hidden="true">Scrolla o swipe per camminare nella città</p>
+
+  <script type="module" src="./three/scene.js?v=7"></script>
+</body>
+</html>

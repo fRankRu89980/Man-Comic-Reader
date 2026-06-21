@@ -16,8 +16,17 @@
   <link rel="icon" href="./icons/icon-192.png?v=7" type="image/png" />
   <link rel="apple-touch-icon" href="./icons/icon-192.png?v=7" />
   <link rel="stylesheet" href="./app.css?v=7" />
+  <link rel="stylesheet" href="./roulette3d.css?v=7" />
 </head>
 <body>
+  <!-- Intro animata col logo del progetto (una volta per sessione) -->
+  <div id="intro-overlay" class="intro-overlay" role="presentation">
+    <div class="intro-inner">
+      <img class="intro-logo" src="./icons/icon-512.png" alt="" />
+      <div class="intro-title">Batman</div>
+    </div>
+  </div>
+
   <video id="bg-video" autoplay muted loop playsinline preload="metadata">
     <source src="gotham.mp4" type="video/mp4" />
   </video>
@@ -66,6 +75,10 @@
       <a href="./crediti.html" class="site-drawer-link">
         <img class="site-drawer-link-icon" src="./assets/menu/crediti.png" alt="" aria-hidden="true" />
         <span class="site-drawer-link-label">Crediti</span>
+      </a>
+      <a href="./gotham.html" class="site-drawer-link">
+        <img class="site-drawer-link-icon" src="./assets/menu/3d.svg" alt="" aria-hidden="true" />
+        <span class="site-drawer-link-label">Gotham 3D Mode</span>
       </a>
       </nav>
     </aside>
@@ -278,6 +291,7 @@
         <div class="roulette-controls">
           <div class="roulette-actions">
             <button id="roulette-voice-btn" class="roulette-btn roulette-btn-secondary" type="button" aria-pressed="true">Voce attiva</button>
+            <button id="roulette-mode-btn" class="roulette-btn roulette-btn-secondary roulette-mode-btn" type="button" aria-pressed="true" aria-label="Modalità roulette: tocca per passare tra 3D e 2D">3D</button>
           </div>
 
           <div class="roulette-result-panel">
@@ -367,6 +381,18 @@
     </div>
   </div>
 
+  <!-- Overlay Roulette 3D (vuoto finché non si apre; Three.js caricato al click) -->
+  <div id="roulette3d-overlay" class="roulette3d-overlay" hidden inert aria-hidden="true">
+    <canvas id="roulette3d-overlay-canvas" aria-label="Roulette napoletana 3D"></canvas>
+    <button id="roulette3d-overlay-close" class="roulette3d-close" type="button" aria-label="Chiudi roulette 3D">&#10005;</button>
+    <div class="roulette3d-bar" role="group" aria-label="Controlli roulette 3D">
+      <button id="roulette3d-overlay-spin" class="roulette3d-btn" type="button">GIRA</button>
+      <button id="roulette3d-overlay-voice" class="roulette3d-btn" type="button" aria-pressed="true">Voce attiva</button>
+      <div id="roulette3d-overlay-result" class="roulette3d-resultbox" aria-live="polite">&#8212;</div>
+    </div>
+  </div>
+
   <script type="module" src="./app/app.js?v=7"></script>
+  <script type="module" src="./app/roulette3d-launch.js?v=7"></script>
 </body>
 </html>

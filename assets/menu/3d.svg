@@ -1,0 +1,22 @@
+<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="3D">
+  <g stroke="#0c5469" stroke-width="0.75" stroke-linejoin="round">
+    <!-- Top face -->
+    <polygon points="32,8 52,18 32,28 12,18" fill="#38b0cc"/>
+    <!-- Left face (holds the 3) -->
+    <polygon points="12,18 32,28 32,54 12,44" fill="#1a87a8"/>
+    <!-- Right face (holds the D) -->
+    <polygon points="32,28 52,18 52,44 32,54" fill="#136f8d"/>
+  </g>
+  <!-- "3" projected onto the left face -->
+  <g transform="translate(22,37) skewY(26.5)">
+    <text x="0" y="0" text-anchor="middle" dominant-baseline="central"
+          font-family="Arial, Helvetica, sans-serif" font-weight="800"
+          font-size="24" fill="#ffffff">3</text>
+  </g>
+  <!-- "D" projected onto the right face -->
+  <g transform="translate(42,37) skewY(-26.5)">
+    <text x="0" y="0" text-anchor="middle" dominant-baseline="central"
+          font-family="Arial, Helvetica, sans-serif" font-weight="800"
+          font-size="24" fill="#dff2f8">D</text>
+  </g>
+</svg>

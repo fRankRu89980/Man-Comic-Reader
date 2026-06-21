@@ -40,6 +40,14 @@ import {
   setupRoulette
 } from "./app-entertainment.js?v=7";
 
+import {
+  injectDisclaimer
+} from "./site-disclaimer.js?v=7";
+
+import {
+  setupIntro
+} from "./intro.js?v=7";
+
 function setupTitleEffects() {
   if(!title) return;
 
@@ -84,6 +92,7 @@ function setupTitleEffects() {
 
 
 function boot() {
+  setupIntro();
   state.paginaCorrente = getInitialPageIndexFromQuery();
   setupMediaPerformance();
   setupDrawerIcons();
@@ -98,6 +107,7 @@ function boot() {
   setupThemeSongVisual();
   setupRoulette();
   registerServiceWorker();
+  injectDisclaimer();
   mostraPagina(state.paginaCorrente);
 }
 
