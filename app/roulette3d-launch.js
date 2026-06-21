@@ -15,6 +15,7 @@ if (overlay) {
 
   let controller = null;
   let loading = false;
+  let opener = null;   // elemento che ha aperto l'overlay (per ripristinare il focus)
 
   // Su smartphone la roulette 3D va usata in orizzontale: in verticale si mostra
   // il gate (CSS) e si attende la rotazione prima di far partire il giro.
@@ -47,6 +48,7 @@ if (overlay) {
 
   async function open() {
     if (loading) return;
+    opener = document.activeElement;   // per ripristinare il focus alla chiusura
 
     // Mostra overlay e fa partire la transizione (reflow → classe)
     overlay.hidden = false;
@@ -84,6 +86,12 @@ if (overlay) {
   }
 
   function close() {
+    // a11y: togli il focus dall'overlay PRIMA di renderlo aria-hidden/inert,
+    // così nessun elemento con focus resta dentro un contenitore nascosto.
+    if (overlay.contains(document.activeElement)) {
+      if (opener && opener !== document.body && typeof opener.focus === "function") opener.focus();
+      else document.activeElement.blur();
+    }
     overlay.classList.remove("is-open");
     document.body.classList.remove("roulette3d-lock");
     waitingLandscape = false;

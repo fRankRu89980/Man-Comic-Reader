@@ -36,6 +36,7 @@ export function attachLangSelector(el) {
 
   const select = document.createElement("select");
   select.className = "site-lang-select";
+  select.id = "lang-select-disclaimer";
   select.setAttribute("aria-label", "Scegli la lingua dell'avviso");
 
   const def = document.createElement("option");

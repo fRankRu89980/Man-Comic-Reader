@@ -201,6 +201,7 @@ function attachSecondaryLangSelector(el) {
   if(!el || el.querySelector(".site-lang-select")) return;
   const select = document.createElement("select");
   select.className = "site-lang-select";
+  select.id = "lang-select-secondary";
   select.setAttribute("aria-label", "Scegli la lingua dell'avviso");
   const def = document.createElement("option");
   def.value = ""; def.textContent = "🌐 Scegli lingua…";
@@ -393,6 +394,7 @@ function attachLegalSelector(section) {
   if(!body) return;
   const select = document.createElement("select");
   select.className = "site-lang-select";
+  select.id = "lang-select-legal";
   select.setAttribute("aria-label", "Scegli la lingua dell'avviso");
   const def = document.createElement("option");
   def.value = ""; def.textContent = "🌐 Scegli lingua…";
