@@ -26,7 +26,7 @@ export function initRoulette3D(canvas, { resultEl = null, spinBtn = null, voiceB
 
   // Ombre reali: il singolo accorgimento che toglie di più l'aspetto "CG".
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;   // PCFSoftShadowMap è deprecato in r184
   renderer.toneMappingExposure = 1.05;
 
   // ── Scena ─────────────────────────────────────────────────
@@ -375,11 +375,13 @@ export function initRoulette3D(canvas, { resultEl = null, spinBtn = null, voiceB
   window.addEventListener("resize", resize);
 
   // ── Loop ──────────────────────────────────────────────────
-  let active = false, animId = null;
-  const clock = new THREE.Clock();
+  // Delta calcolato a mano (THREE.Clock è deprecato in r184).
+  let active = false, animId = null, lastT = 0;
   function frame() {
     animId = requestAnimationFrame(frame);
-    const delta = Math.min(clock.getDelta(), 0.05);
+    const now = performance.now();
+    const delta = lastT ? Math.min((now - lastT) / 1000, 0.05) : 0;
+    lastT = now;
 
     // Camera: easing morbido verso la posa target + leggera deriva idle.
     const k = 1 - Math.pow(0.0009, delta);
@@ -412,7 +414,7 @@ export function initRoulette3D(canvas, { resultEl = null, spinBtn = null, voiceB
     renderer.render(scene, camera);
   }
   function setActive(on) {
-    if (on && !active) { active = true; clock.getDelta(); frame(); }
+    if (on && !active) { active = true; lastT = performance.now(); frame(); }
     else if (!on && active) { active = false; if (animId) cancelAnimationFrame(animId); animId = null; }
   }
 
