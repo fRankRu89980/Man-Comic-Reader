@@ -18,13 +18,13 @@ import {
   bgVideo,
   runtimeRuleCache,
   guardDoubleTap, resetUiFocus, updateStatus
-} from "./app-init.js?v=8";
+} from "./app-init.js?v=11";
 
 import {
   creaVignette,
   closeModal,
   resolveTapTarget
-} from "./app-vignette.js?v=8";
+} from "./app-vignette.js?v=11";
 
 // ── CSS runtime variable system ──────────────────────────────
 

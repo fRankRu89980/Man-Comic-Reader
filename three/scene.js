@@ -56,7 +56,7 @@ let devSaveAcc = 0;
 const hint = document.querySelector(".gotham-hint");
 const { update: updateGlbCity } = createGlbCity(
   scene,
-  "./assets/gotham3d/export/gotham.glb?v=9",
+  "./assets/gotham3d/export/gotham.glb?v=11",
   {
     onProgress: f => { if (hint) hint.textContent = `Caricamento città… ${Math.round(f*100)}%`; },
     onReady:    () => { if (hint) hint.textContent = "Scrolla o swipe per camminare nella città"; }

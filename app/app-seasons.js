@@ -5,11 +5,11 @@
 import {
   menu, seasonLinks, seasonPopupCompact, seasonMenuClose,
   guardDoubleTap, resetUiFocus
-} from "./app-init.js?v=8";
+} from "./app-init.js?v=11";
 
 import {
   mostraPagina
-} from "./app-reader.js?v=8";
+} from "./app-reader.js?v=11";
 
 // ── Navigazione da query string ──────────────────────────────
 

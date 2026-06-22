@@ -12,15 +12,16 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Comic Reader" />
-  <link rel="manifest" href="./manifest.json?v=8" />
-  <link rel="icon" href="./icons/icon-192.png?v=8" type="image/png" />
-  <link rel="apple-touch-icon" href="./icons/icon-192.png?v=8" />
-  <link rel="stylesheet" href="./app.css?v=8" />
-  <link rel="stylesheet" href="./roulette3d.css?v=8" />
+  <link rel="manifest" href="./manifest.json?v=11" />
+  <link rel="icon" href="./icons/icon-192.png?v=11" type="image/png" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png?v=11" />
+  <link rel="stylesheet" href="./app.css?v=11" />
+  <link rel="stylesheet" href="./roulette3d.css?v=11" />
 </head>
 <body>
   <!-- Intro animata col logo del progetto (una volta per sessione) -->
   <div id="intro-overlay" class="intro-overlay" role="presentation">
+    <canvas id="intro-canvas" class="intro-canvas" aria-hidden="true"></canvas>
     <div class="intro-inner">
       <img class="intro-logo" src="./icons/icon-512.png" alt="" />
       <div class="intro-title">Batman</div>
@@ -397,7 +398,7 @@
     </div>
   </div>
 
-  <script type="module" src="./app/app.js?v=8"></script>
-  <script type="module" src="./app/roulette3d-launch.js?v=8"></script>
+  <script type="module" src="./app/app.js?v=11"></script>
+  <script type="module" src="./app/roulette3d-launch.js?v=11"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@ import {
   modal, imgZoom,
   vignetteContainer,
   updateStatus
-} from "./app-init.js?v=8";
+} from "./app-init.js?v=11";
 
 // ── Vignette ─────────────────────────────────────────────────
 

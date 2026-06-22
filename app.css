@@ -2585,6 +2585,10 @@ button,
   to{ opacity:1; transform:translateY(0); }
 }
 body.intro-lock{ overflow:hidden; }
+/* Canvas 3D dell'intro (costruzione a mattoni). Attivo solo in modalità 3D. */
+.intro-canvas{ position:fixed; inset:0; width:100%; height:100%; display:none; }
+.intro-overlay.intro-3d .intro-canvas{ display:block; }
+.intro-overlay.intro-3d .intro-inner{ display:none; }
 @media (prefers-reduced-motion: reduce){
   .intro-logo,.intro-title{ animation:none; opacity:1; }
 }
