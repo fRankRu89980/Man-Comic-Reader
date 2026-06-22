@@ -6,47 +6,47 @@ if (window.self !== window.top) {
 import {
   state,
   title
-} from "./app-init.js?v=7";
+} from "./app-init.js?v=8";
 
 import {
   mostraPagina,
   setupMediaPerformance,
   setupReaderZoom,
   setupNavigation
-} from "./app-reader.js?v=7";
+} from "./app-reader.js?v=8";
 
 import {
   setupDrawerIcons,
   setupHamburgerMenu
-} from "./app-hamburger.js?v=7";
+} from "./app-hamburger.js?v=8";
 
 import {
   setupSwipe
-} from "./app-swipe.js?v=7";
+} from "./app-swipe.js?v=8";
 
 import {
   setupMenu,
   getInitialPageIndexFromQuery
-} from "./app-seasons.js?v=7";
+} from "./app-seasons.js?v=8";
 
 import {
   setupInstallUi,
   setupPostLoginRefreshBridge,
   registerServiceWorker
-} from "./app-pwa.js?v=7";
+} from "./app-pwa.js?v=8";
 
 import {
   setupThemeSongVisual,
   setupRoulette
-} from "./app-entertainment.js?v=7";
+} from "./app-entertainment.js?v=8";
 
 import {
   injectDisclaimer
-} from "./site-disclaimer.js?v=7";
+} from "./site-disclaimer.js?v=8";
 
 import {
   setupIntro
-} from "./intro.js?v=7";
+} from "./intro.js?v=8";
 
 function setupTitleEffects() {
   if(!title) return;

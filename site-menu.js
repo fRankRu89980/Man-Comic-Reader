@@ -169,7 +169,7 @@ async function registerSecondaryServiceWorker() {
       return;
     }
 
-    await navigator.serviceWorker.register("./sw.js?v=7", {
+    await navigator.serviceWorker.register("./sw.js?v=8", {
       updateViaCache: "none"
     });
   } catch (error) {

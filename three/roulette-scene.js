@@ -27,6 +27,9 @@ export function initRoulette3D(canvas, { resultEl = null, spinBtn = null, voiceB
   // Ombre reali: il singolo accorgimento che toglie di più l'aspetto "CG".
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;   // PCFSoftShadowMap è deprecato in r184
+  // Silenzia i warning HLSL/ANGLE benigni (X4122 "double precision") che three.js
+  // stampa leggendo il program info log; in produzione è anche un micro-guadagno.
+  renderer.debug.checkShaderErrors = false;
   renderer.toneMappingExposure = 1.05;
 
   // ── Scena ─────────────────────────────────────────────────

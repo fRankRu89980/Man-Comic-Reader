@@ -8,18 +8,18 @@ import {
   state,
   wrapper, currentLayer, shadow, vignetteContainer,
   isInteractiveElement
-} from "./app-init.js?v=7";
+} from "./app-init.js?v=8";
 
 import {
   setLayerTransitions,
   setLayerTransforms,
   getPageWidth,
   mostraPagina
-} from "./app-reader.js?v=7";
+} from "./app-reader.js?v=8";
 
 import {
   resolveTapTarget
-} from "./app-vignette.js?v=7";
+} from "./app-vignette.js?v=8";
 
 // ── Swipe / scroll / tap ─────────────────────────────────────
 

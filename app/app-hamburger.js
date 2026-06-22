@@ -5,7 +5,7 @@
 import {
   hamburgerToggle, siteDrawer, siteDrawerOverlay, siteDrawerLinks,
   guardDoubleTap, resetUiFocus
-} from "./app-init.js?v=7";
+} from "./app-init.js?v=8";
 
 // ── Icone drawer ─────────────────────────────────────────────
 

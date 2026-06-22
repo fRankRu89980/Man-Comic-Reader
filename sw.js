@@ -1,4 +1,4 @@
-const CACHE_NAME = "comic-reader-shell-v22";
+const CACHE_NAME = "comic-reader-shell-v23";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -7,20 +7,20 @@ const APP_SHELL = [
   "./le-perle-di-bud.html",
   "./meanwhile-the-doctor.html",
   "./crediti.html",
-  "./app.css?v=7",
-  "./app/app-init.js?v=7",
-  "./app/app-vignette.js?v=7",
-  "./app/app-reader.js?v=7",
-  "./app/app-hamburger.js?v=7",
-  "./app/app-swipe.js?v=7",
-  "./app/app-seasons.js?v=7",
-  "./app/app-pwa.js?v=7",
-  "./app/app-entertainment.js?v=7",
-  "./app/app.js?v=7",
-  "./site-menu.js?v=7",
-  "./manifest.json?v=7",
-  "./icons/icon-192.png?v=7",
-  "./icons/icon-512.png?v=7"
+  "./app.css?v=8",
+  "./app/app-init.js?v=8",
+  "./app/app-vignette.js?v=8",
+  "./app/app-reader.js?v=8",
+  "./app/app-hamburger.js?v=8",
+  "./app/app-swipe.js?v=8",
+  "./app/app-seasons.js?v=8",
+  "./app/app-pwa.js?v=8",
+  "./app/app-entertainment.js?v=8",
+  "./app/app.js?v=8",
+  "./site-menu.js?v=8",
+  "./manifest.json?v=8",
+  "./icons/icon-192.png?v=8",
+  "./icons/icon-512.png?v=8"
 ];
 
 function isAppShellAsset(pathname) {
