@@ -62,7 +62,7 @@ if (overlay) {
       loading = true;
       if (resultEl) resultEl.textContent = "Caricamento…";
       try {
-        const mod = await import("../three/roulette-scene.js?v=11");
+        const mod = await import("../three/roulette-scene.js?v=12");
         controller = mod.initRoulette3D(canvas, {
           resultEl, spinBtn, voiceBtn,
           // Comunica l'estrazione alla roulette 2D: aggiorna il pannello

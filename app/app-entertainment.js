@@ -12,11 +12,11 @@ import {
   themeSongProgress, themeSongTime,
   themeVideoModal, themeVideoPlayer, themeVideoClose,
   guardDoubleTap, resetUiFocus
-} from "./app-init.js?v=11";
+} from "./app-init.js?v=12";
 
 import {
   setRuntimeCssVariable
-} from "./app-reader.js?v=11";
+} from "./app-reader.js?v=12";
 
 // ── Theme Song ───────────────────────────────────────────────
 

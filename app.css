@@ -2589,6 +2589,25 @@ body.intro-lock{ overflow:hidden; }
 .intro-canvas{ position:fixed; inset:0; width:100%; height:100%; display:none; }
 .intro-overlay.intro-3d .intro-canvas{ display:block; }
 .intro-overlay.intro-3d .intro-inner{ display:none; }
+/* Indicatore "Caricamento" (intro come schermata di caricamento) */
+.intro-loading{
+  position:fixed; left:0; right:0; bottom:8%;
+  z-index:10001; display:none;
+  justify-content:center; align-items:center; gap:9px;
+  color:#d4af37; font:600 13px/1 system-ui,Arial,sans-serif;
+  letter-spacing:.14em; text-transform:uppercase; pointer-events:none;
+  opacity:0; animation:introLoadingIn .4s ease forwards;
+}
+.intro-loading.is-visible{ display:flex; }
+.intro-loading i{
+  width:7px; height:7px; border-radius:50%; background:#d4af37;
+  opacity:.3; animation:introDot 1.1s infinite ease-in-out;
+}
+.intro-loading i:nth-of-type(2){ animation-delay:.18s; }
+.intro-loading i:nth-of-type(3){ animation-delay:.36s; }
+@keyframes introLoadingIn{ from{ opacity:0; } to{ opacity:1; } }
+@keyframes introDot{ 0%,100%{ opacity:.25; transform:translateY(0); } 50%{ opacity:1; transform:translateY(-5px); } }
+@media (prefers-reduced-motion: reduce){ .intro-loading i{ animation:none; } }
 @media (prefers-reduced-motion: reduce){
   .intro-logo,.intro-title{ animation:none; opacity:1; }
 }

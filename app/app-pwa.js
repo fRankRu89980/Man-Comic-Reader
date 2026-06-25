@@ -12,7 +12,7 @@ import {
   iosInstallSteps, iosInstallClose, iosInstallDismiss,
   installUiState,
   guardDoubleTap, resetUiFocus
-} from "./app-init.js?v=11";
+} from "./app-init.js?v=12";
 
 // ── Rilevamento ambiente ─────────────────────────────────────
 
